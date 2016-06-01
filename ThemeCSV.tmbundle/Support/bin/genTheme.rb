@@ -53,18 +53,21 @@ class GenTheme
     settings = []
     plist = nil
     globals = nil
+    gutter = nil
     
     lines.split("\n").each do |line|
       next if line[0] =~ /\/\//
       tokens = line.split(',')
       plist = process_header(tokens) if tokens[0].strip == 'Header'
       globals = process_main(tokens) if tokens[0].strip == 'Main'
+      gutter = process_gutter(tokens) if tokens[0].strip == 'Gutter'
       settings << process_scope(tokens) if tokens[0].strip == 'Scope'
     end
 
     # Build it
     settings.insert(0, globals)
     plist[:settings] = settings
+    plist[:gutterSettings] = gutter
 
     if @options[:build]
       bundle_path = "#{@avian_bundles}/#{plist[:name]}.tmbundle"
@@ -129,6 +132,18 @@ class GenTheme
     }
     {
       :settings => settings
+    }
+  end
+
+  def process_gutter(line)
+    # background, foreground, divider, selectionBackground, selectionForeground
+    raise "Gutter must contain 'background, foreground, divider, selectionBackground, selectionForeground." if line.length != 6
+    settings = {
+      :background => line[1].strip,
+      :foreground => line[2].strip,
+      :divider => line[3].strip,
+      :selectionBackground => line[4].strip, 
+      :selectionForeground => line[5].strip
     }
   end
 
