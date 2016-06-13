@@ -22,7 +22,7 @@
 		</dict>
 		<dict>
 			<key>match</key>
-			<string>^\b(Header|Main|Scope)\b</string>
+			<string>^\b(Header|Main|Scope|Gutter)\b</string>
 			<key>name</key>
 			<string>entity.name.function</string>
 		</dict>
