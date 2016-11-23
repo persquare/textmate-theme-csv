@@ -196,7 +196,7 @@ class GenTheme
     
     # Set paths
     @app_support = "#{ENV['HOME']}/Library/Application\ Support"
-    @avian_bundles = "#{@app_support}/Avian/Bundles"
+    @avian_bundles = "#{@app_support}/TextMate/Bundles"
   end
     
 end
